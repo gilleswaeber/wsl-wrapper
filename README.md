@@ -27,7 +27,7 @@ Create a batch file with the following content and name it as the desired comman
 ```
 You can then call it simply with `ls` (assuming you are in the same folder or you added it to your path). You can also add parameters, e.g. `ls --color -al`.
 
-@ suppresses command output. %~dp0 is the script folder including drive letter. %~n0 is the script filename without extension.
+`@` suppresses command output. `%~dp0` is the script folder including drive letter. `%~n0` is the script filename without extension. `%*` are all script arguments.
 
 Notes
 =====
