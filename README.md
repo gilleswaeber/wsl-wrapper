@@ -7,10 +7,10 @@ Requirements
 ============
 [WSL](https://msdn.microsoft.com/commandline/wsl/about) must be installed and configured.
 
-The *bsdutil* package must be installed within wsl (for the *script* command). This can be done with
+The *bsdutils* package must be installed within wsl (for the *script* command). This can be done with
 `sudo apt install bsdutils`.
 
-If you want to call wsl.ps1 directly, you may want to [enable powershell scripts execution](https://technet.microsoft.com/en-us/library/ee176961.aspx) but this is not required. You can bypass it with the *-ExecutionPolicy Bypass* flag of powershell. The bat file will apply this flag if you use it.
+If you want to call wsl.ps1 directly, you may want to [enable powershell scripts execution](https://technet.microsoft.com/en-us/library/ee176961.aspx) but this is not required. You can bypass it with the *-ExecutionPolicy Bypass* flag of powershell. The batch file will apply this flag if you use it.
 
 How to use
 ==========
