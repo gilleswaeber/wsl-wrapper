@@ -1,37 +1,31 @@
 WSL Wrapper
 ===========
 It is a simple wrapper around the Linux subsystem for Windows available in Windows 10.
-It allows to pipe wsl commands or redirect them to a file. If the commands output color escaped codes, they are also transmitted. It also transmits the last error status of the command.
+It allows to call WSL executables as if they were native Windows applications. This avoid playing with `bash -c`.
 
 Requirements
 ============
-[WSL](https://msdn.microsoft.com/commandline/wsl/about) must be installed and configured.
-
-The *bsdutils* package must be installed within wsl (for the *script* command). This can be done with
-`sudo apt install bsdutils`.
-
-If you want to call wsl.ps1 directly, you may want to [enable powershell scripts execution](https://technet.microsoft.com/en-us/library/ee176961.aspx) but this is not required. You can bypass it with the *-ExecutionPolicy Bypass* flag of powershell. The batch file will apply this flag if you use it.
+This version require the Windows 10 Creators Update and a functionnal [WSL](https://msdn.microsoft.com/commandline/wsl/about).
 
 How to use
 ==========
-### Batch file
-Usage: `wsl <command>`, e.g. `wsl "git status"`
+**Note:** Usage changed since the previous version.
 
-### Powershell file
-Usage: `powershell -file wsl.ps1 <command>`, e.g. `powershell -file wsl.ps1 "git status"`
+Put *wsl.bat* in a folder and add the folder to your PATH.
+
+### Batch file
+Usage: `wsl <command>`, e.g. `wsl git status`
 
 ### Command wrapper
-Create a batch file with the following content and name it as the desired command, e.g. *ls.bat*. Place it in the same folder as *wsl.bat* and *wsl.ps1*.
+Create a batch file with the following content and name it as the desired command, e.g. *ls.bat*. Place it in the same folder as *wsl.bat*.
 ``` batch
-@"%~dp0wsl.bat" "%~n0 %*"
+@call "%~dp0wsl.bat" %~n0 %*
 ```
-You can then call it simply with `ls` (assuming you are in the same folder or you added it to your path). You can also add parameters, e.g. `ls --color -al`.
+You can then call it simply with `ls` from anywhere in your system. You can also add parameters, e.g. `ls --color -al`.
 
-`@` suppresses command output. `%~dp0` is the script folder including drive letter. `%~n0` is the script filename without extension. `%*` are all script arguments.
-
-Notes
-=====
-3 files are created in the working folder during script execution and then destroyed. 
-They are named `.script.<random id>.sh`, `.log.<random id>.txt` and `.status.<random id>.txt`. If the script fails, they can be deleted without further consequences.
-
-Contributions are welcome.
+If you already installed MinGW, Cygwin, Git for Windows or another utility providing linux tools, you can check which version of the command is executed with the `where` command, e.g. `where ls`.
+#### Snippet explanation
+`@` suppresses command output.
+`%~dp0` is the script folder including drive letter.
+`%~n0` is the script filename without extension.
+`%*` are all script arguments.

@@ -1,1 +1,1 @@
-@"%~dp0wsl.bat" "%~n0 %*"
+@call "%~dp0wsl.bat" %~n0 %*
