@@ -1,0 +1,12 @@
+#!/bin/bash
+# Convert a WSL path to its Windows counterpart
+# Usage: wsl2path <path>
+# This command also accept input through STDIN, one path per line
+#
+# Example: wsl2path '/mnt/c/Users/Admin/Desktop'
+#   gives: C:\Users\Admin\Desktop
+
+# Use STDIN if no argument
+set -- "${1:-$(</dev/stdin)}" "${@:2}"
+
+echo "$1" | sed -e 's/^\/mnt\/\([a-z]\)/\U\1:/' -e 's/\//\\/g'

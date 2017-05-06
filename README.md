@@ -1,7 +1,9 @@
 WSL Wrapper
 ===========
 It is a simple wrapper around the Linux subsystem for Windows available in Windows 10.
-It allows to call WSL executables as if they were native Windows applications. This avoid playing with `bash -c`.
+It allows to call WSL executables as if they were native Windows applications. This avoid playing with `bash -ic`.
+
+It also contains two useful commands for converting paths: `path2wsl` and `wsl2path`.
 
 Requirements
 ============
@@ -13,7 +15,7 @@ How to use
 
 Put *wsl.bat* in a folder and add the folder to your PATH.
 
-### Batch file
+### WSL Wrapper
 Usage: `wsl <command>`, e.g. `wsl git status`
 
 ### Command wrapper
@@ -29,3 +31,20 @@ If you already installed MinGW, Cygwin, Git for Windows or another utility provi
 `%~dp0` is the script folder including drive letter.
 `%~n0` is the script filename without extension.
 `%*` are all script arguments.
+
+### Path conversion commands
+There are two proposed linux commands for converting paths:
+- `path2wsl`: Convert a Windows path to its WSL counterpart
+- `wsl2path`: Convert a WSL path to its Windows counterpart
+
+Usage: `wsl2path <path>` or `path2wsl <path>`.
+These commands also accept input through STDIN, one path per line.
+Note that as of the Creators Update, your Windows PATH is automatically added to your linux path. You don't need then to move these commands to linux to use them.
+
+#### Examples
+- `wsl2path '/mnt/c/Users/Admin/Desktop'` gives `C:\Users\Admin\Desktop`
+- `path2wsl 'D:\Data\file.txt'` gives `/mnt/d/Data/file.txt`
+
+You can also use them from within Windows:
+- `wsl path2wsl "%SystemRoot%"` gives something like `/mnt/c/WINDOWS`
+- ``ls `path2wsl "%USERPROFILE%"` `` will list contents of your home folder (assuming *ls.bat* in PATH)
